@@ -1,0 +1,55 @@
+This Python extension provides Ascii85 Data Encodings.
+
+For more information check wikipedia's Ascii85:
+    http://en.wikipedia.org/wiki/Ascii85
+
+
+BUILDING
+ 
+ To build the extension do the following:
+   $ python setup.py build_ext -i
+
+
+USAGE
+
+ encoding:
+   encode(input, output, begin_tag=True, end_tag=True)
+   b85encode(buffer, begin_tag=True, end_tag=True)
+ 
+ decoding:
+   decode(input, output)
+   b85decode(buffer)
+
+
+TAGS
+
+ Ascii85 begin and end tags are <~ and ~>, respectively. Why they're optional while encoding? 
+ For instance, when embedding RGB images into PostScript as Ascii85, the initial tag <~ isn't necessary.
+
+ However, the decoder require such tags. 
+
+
+EXAMPLES
+
+ (from buffer)
+ >>> import ascii85
+ >>> v = ascii85.b85encode('sample test')
+ >>> ascii85.b85decode(v)
+ 'sample test'
+ >>> v
+ '<~F(&p)Ch4`2ATMq~>\n'
+ 
+ 
+ (from file)
+ >>> ascii85.encode(file('/etc/motd'), sys.stdout)
+ <~9PJBeGT^d?DJ((I/iG=;0J,";/SAX4ATDKp+<rWa;b^(2;fut#;e9nj1,C%-3BB#O3\rc=<
+ E)=.1,(C@+DE_n2@9djBOr<*Ec5T2@;U'.Bl7EsF_#&o+EqOABHVD1AKXu^F`);D+EMgLFCf;
+ 3@<,p%Ao_Ho+EMI5FE_/6ANL6@BOr;tG[Y*(+Co2-FE2))F`_>9DBO%4Ec#k?AoD]4ART(^+E
+ 2@>B6%Et+CT;%+Co&)@rc9mARlotDBO%7AI<-hA8-4$A9D<s+D,>(ATJu.DBLTTF)ipTBOPpm
+ 04]!20.JVbDfBuBBkM+$/d_qc@WcR1FWb14D.Rc2GA2/4+@/=m:J=bf78-i,:/<!65uLTH:/k
+ @I+EVNEFD,5.AU&<.DKI"?ATDX%FED))+C]U'@;p1%Bk(R\Ch4`*@<X=2~>
+
+ 
+
+ 2008-01-03 Alexandre Fiori
+
